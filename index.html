@@ -2,12 +2,51 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>Hello Vue!</title>
+    <title>Hello Vue!(いつものやつさ)</title>
   </head>
   <body>
     <div id="app">
       {{ message }}
     </div>
+    <div id="app-2">
+      <span v-bind:title="message">
+        Hover yout mouse over me for a few seconds
+        to see my dynamically bound title!<br>
+        (要はマウスオーバーでメッセージが出るやつ)
+      </span><br>
+    </div>
+    <div id="app-3">
+      <span v-if="seen">Now you see me(条件分岐) </span>
+    </div>
+    <div id="app-4">
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+    </div>
+    <div id="app-5">
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+    <div id="app-6">
+      <p>{{ message }}</p>
+      <input v-model="message">
+    </div>
+    <div id="app-7">
+      <br>
+      ↓一見ただの配列だけどコンポーネントなので使い回しが可能
+      <ol>
+        <!--
+        各todo-itemの内容を表すtodoオブジェクトを与える。
+        これより内容は動的に変化する。
+        また、あとに出てくる"key"を各コンポーネントに提供する必要がある。
+        -->
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        使い回しです
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+      </ol>
+  </div>
     <!-- HTMLを読み込む前にVueを走らせると怒られる -->
     <!-- 開発用 -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
