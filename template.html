@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Vue!(いつものやつさ)</title>
+  </head>
+  <body>
+    <!-- テキスト展開 -->
+    <!-- 基本のやつ -->
+    <span>Message:{{ msg }}</span>
+
+    <!-- mustacheタグ：対応するオブジェクトのmsgプロパティの値に置き換えられる
+        更新されたらそれに書き換わる。もう当然のことだ
+    v-onceディレクティブを使用することによって更新は行わず、一度だけ展開させることができる
+    同じノートのあらゆる他のバインディングも影響下におかれるのが注意点-->
+    <span v-once>this will never change: {{ msg }}</span>
+
+    <!-- JSの使用 -->
+    <!-- Vue.jsはすべてのデータバインディング内部でJSを完全サポートする -->
+    {{ number + 1 }}
+    {{ ok? 'YES' : 'NO' }}
+    {{ message.split('').reverse().join() }}
+    <div v-vind:id="'list-' + id"></div>
+
+    <!-- ディレクティブ -->
+    <!-- [v-]から始まる特別な属性。
+    単一のJS式だけを評価する。（複数JS式書いても動かない、ただしv-forは例外) -->
+    <p v-if="seen">Now you see me</p>
+    <!-- これはseenの真偽に基づいて<p>要素を削除/挿入 -->
+
+    <!-- 引数 -->
+    <!-- 引数を受け取ることができる、コロンの後にかく -->
+    <a v-bind:href="instance.txt">...</a>
+    <!-- ここでのhrefはv-bindディレクティブに要素のhref属性にurlの値を束縛することを教えるための引数 -->
+    <a v-on:click="doSomething"></a>
+    <!-- v-onには起こしたいイベントをかく -->
+
+    <!-- 修飾子 -->
+    <!-- ドットで表記された特別な接尾語でディレクティブが特別な方法で束縛されるべきということを示します
+  .prevent修飾子はv-onディレクティブにイベントがトリガされた際event.preventDefault()を呼ぶよう働く -->
+    <form v-on:submit.prevent="onSubmit">hogefuga</form>
+
+        <!-- v-bind省略 -->
+        <a :href="index.html">click me!</a>
+        <!-- v-on省略 -->
+        <a @click="doSomething">None</a>
+    <!-- これらは普通の HTML とはちょっと違うように見えるかもしれません。ですが、 : や @ は属性名に利用可能な文字です。すべての Vue.js のサポートしているブラウザで、正しくパースすることができます。加えて、最終的に描画されるマークアップにそれらは現れません。省略記法の構文の利用は完全に任意ですが、後でその使用方法について詳しく学んだ時に便利と感じることでしょう。 -->
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript" src="./vue.js"></script>
+  </body>
+</html>
