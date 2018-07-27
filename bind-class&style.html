@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <!-- クラスとスタイルのバインディング -->
+    <!-- データバインディングに対する共通の必要なことは、
+    要素のクラスリストとインラインスタイルを操作していること。
+    それらは両方属性になるので、それらを v-bind を使用して処理することができる。
+    私達の式で最終的に文字列を計算する必要があります。
+    しかしながら、文字列の連結に関わることは、迷惑なエラーが発生しやすいです。
+    この理由のため、Vue は v-bind が class と style と一緒に使われるとき、特別な拡張を提供します。
+    文字列に加えて、式はオブジェクトまたは配列も評価することができます。 -->
+
+    <!-- オブジェクト構文 -->
+    <div v-bind:class="{ activ: isActiv }"></div>
+  <script src="https://unpkg.com/vue"></script>
+  <script type="text/javascript" src="./vue.js"></script>
+  </body>
+</html>
