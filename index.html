@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Hello Vue!(いつものやつさ)</title>
+    <style media="screen">
+      .todo-default {
+        padding: 5px;
+        border-bottom: 1px solid silver;
+      }
+      .todo-doing {
+        background-color: floralwhite;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
@@ -46,6 +55,17 @@
         使い回しです
         <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
       </ol>
+  </div>
+
+  <p>Qiitaより</p>
+  <div id="todoApp">
+    <h2 v-bind:style="fontStyle">{{ title }}</h2>
+    <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
+    <div>
+      <div v-for="t in todos" v-vind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
+        {{ t.name }}
+      </div>
+    </div>
   </div>
     <!-- HTMLを読み込む前にVueを走らせると怒られる -->
     <!-- 開発用 -->

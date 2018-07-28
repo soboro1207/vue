@@ -16,7 +16,21 @@
 
     <!-- オブジェクト構文 -->
     <div v-bind:class="{ activ: isActiv }"></div>
+    <!-- これはactivクラスが存在するかどうかをデータプロパティのisActivがtureと評価される値かによって決まることを意味する
+    オブジェクトに複数の項目を持たせることで複数のクラスを切り替えることができる
+    加えてv-bind:classディレクティブはプレーンなclass属性と共存できる -->
+    <div  id="app" class="static" v-bind:class="{activ:isActive, 'text-danger':hasError}">
+    </div>
   <script src="https://unpkg.com/vue"></script>
-  <script type="text/javascript" src="./vue.js"></script>
+  <!-- <script type="text/javascript" src="./vue.js"></script> -->
+  <script type="text/javascript">
+  var app = new Vue({
+    el:'#app',
+    data: {
+      isActive: true,
+      hasError: false
+    }
+  })
+  </script>
   </body>
 </html>
