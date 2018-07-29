@@ -11,6 +11,20 @@
       .todo-doing {
         background-color: floralwhite;
       }
+
+      .repository-default{
+        padding: 10px;
+      }
+      .repository-default a{
+        font-weight: bold;
+        font-size: 18px;
+        text-decoration: none;
+        color: slategray;
+      }
+      .repository-default span{
+        color:#767676;
+        font-size: 12px;
+      }
     </style>
   </head>
   <body>
@@ -60,10 +74,30 @@
   <p>Qiitaより</p>
   <div id="todoApp">
     <h2 v-bind:style="fontStyle">{{ title }}</h2>
-    <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
+    <input type="text" v-model="todo" v-されていきますされていきますon:keyup.enter="addTodo">
     <div>
       <div v-for="t in todos" v-vind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
         {{ t.name }}
+      </div>
+    </div>
+  </div>
+  <div id="issues">
+    <h2>Latest repository : {{ repository }}</h2>
+    <div>
+      <input type="text" v-model="repository">
+    </div>
+    <div>
+      <input type="text" v-model="searchText">
+      <div v-show="hasRepository">
+        <div v-for="repository change" class="repository-default">
+          <a :href="repository.html_url" target="_blank">
+            {{ repository.title }}
+          </a><br/>
+          <span>#{{repository.number}} at {{repository.update_at | formatData}}</span>
+        </div>
+      </div>
+      <div v-else>
+        The {{repository}} does not exist.
       </div>
     </div>
   </div>

@@ -92,3 +92,48 @@ var app = new Vue({
     }
   }
 })
+
+var REPOSITORY = "https://api.github.com/repositories"
+
+var repoView = new Vue({
+  el:"#repository",
+  data: {
+    repository: "vuejs/vue",
+    searchText: "",
+  },
+  //初期化処理(repository情報の取得実行)
+  created: function(){
+    this.fetchData()
+  },
+  watch: {
+    repository: "fetchData"
+  },
+  filters: {
+    formatData: function(v){
+      return v.replace(/T|Z/g, ' ')
+    }
+  },
+  //動的なプロパティ(取得できてるかどうかで計算)
+  computed: {
+    hasRepository: function(){
+      return this.repository.length > 0 ? true : false;
+    },
+    filtered_repository: function(){
+      var query = this.searchText;
+      return this.repository.filter(function(repository){
+        return repository.title.indexOf(query) > -1
+      })
+    }
+  },
+  methods: {
+    fetchData: function(){
+      var xhr = new XMLHttpRequest();
+      var self = this;
+      xhr.open("GET", REPOSITORY.replace("",this.repository));
+      xhr.onlord = function(){
+        self.repository = JSON.parse(xhr.responseText);
+      }
+      xhr.send()
+    }
+  }
+})
