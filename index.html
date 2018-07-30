@@ -74,30 +74,33 @@
   <p>Qiitaより</p>
   <div id="todoApp">
     <h2 v-bind:style="fontStyle">{{ title }}</h2>
-    <input type="text" v-model="todo" v-されていきますされていきますon:keyup.enter="addTodo">
+    <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
     <div>
       <div v-for="t in todos" v-vind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
         {{ t.name }}
       </div>
     </div>
   </div>
+
+
+<p>Github連携</p>
   <div id="issues">
-    <h2>Latest repository : {{ repository }}</h2>
+    <h2>Latest {{ repository }} Issues</h2>
     <div>
       <input type="text" v-model="repository">
     </div>
     <div>
       <input type="text" v-model="searchText">
-      <div v-show="hasRepository">
-        <div v-for="repository change" class="repository-default">
-          <a :href="repository.html_url" target="_blank">
-            {{ repository.title }}
+      <div v-if="hasIssue">
+        <div v-for="issue in filtered_issues" class="issue-default">
+          <a :href="issue.html_url" target="_blank">
+            {{ issue.title }}
           </a><br/>
-          <span>#{{repository.number}} at {{repository.update_at | formatData}}</span>
+          <span>#{{issue.number}} at {{issue.updated_at | formatDate}}</span>
         </div>
       </div>
       <div v-else>
-        The {{repository}} does not exist.
+        The repository {{repository}} does not exist.
       </div>
     </div>
   </div>

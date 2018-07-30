@@ -68,7 +68,7 @@ var app7 = new Vue({
   }
 })
 
-var app = new Vue({
+var todoApp = new Vue({
   el: '#todoApp',
   data: {
     title: "Welcome to Vue.js",
@@ -93,13 +93,14 @@ var app = new Vue({
   }
 })
 
-var REPOSITORY = "https://api.github.com/repositories"
+var ISSUES = "https://api.github.com/repos/[R]/issues?state=open"
 
-var repoView = new Vue({
-  el:"#repository",
+var issueView = new Vue({
+  el: "#issues",
   data: {
     repository: "vuejs/vue",
     searchText: "",
+    issues:[]
   },
   //初期化処理(repository情報の取得実行)
   created: function(){
@@ -109,19 +110,19 @@ var repoView = new Vue({
     repository: "fetchData"
   },
   filters: {
-    formatData: function(v){
+    formatDate: function(v){
       return v.replace(/T|Z/g, ' ')
     }
   },
   //動的なプロパティ(取得できてるかどうかで計算)
   computed: {
-    hasRepository: function(){
-      return this.repository.length > 0 ? true : false;
+    hasIssue: function(){
+      return this.issues.length > 0 ? true : false;
     },
-    filtered_repository: function(){
+    filtered_issues: function(){
       var query = this.searchText;
-      return this.repository.filter(function(repository){
-        return repository.title.indexOf(query) > -1
+      return this.issues.filter(function(issue){
+        return issue.title.indexOf(query) > -1
       })
     }
   },
@@ -129,9 +130,9 @@ var repoView = new Vue({
     fetchData: function(){
       var xhr = new XMLHttpRequest();
       var self = this;
-      xhr.open("GET", REPOSITORY.replace("",this.repository));
+      xhr.open("GET", ISSUES.replace("[R]", this.repository));
       xhr.onlord = function(){
-        self.repository = JSON.parse(xhr.responseText);
+        self.issues = JSON.parse(xhr.responseText);
       }
       xhr.send()
     }
