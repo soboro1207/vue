@@ -51,22 +51,6 @@ var app6 = new Vue({
     message: 'Hello Vue!'
   }
 })
-//todo-itemという名の新しいコンポーネントを定義
-Vue.component('todo-item', {
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-})
-//上のコンポーネントの内容
-var app7 = new Vue({
-  el: '#app-7',
-  data: {
-    groceryList: [
-      { id: 0, text: 'Vegetables' },
-      { id: 1, text: 'Cheese' },
-      { id: 2, text: 'Whatever else humans are supposed to eat' }
-    ]
-  }
-})
 
 var todoApp = new Vue({
   el: '#todoApp',
@@ -98,43 +82,72 @@ var ISSUES = "https://api.github.com/repos/[R]/issues?state=open"
 var issueView = new Vue({
   el: "#issues",
   data: {
-    repository: "vuejs/vue",
+  	repository: "vuejs/vue",
     searchText: "",
-    issues:[]
+    issues: []
   },
-  //初期化処理(repository情報の取得実行)
-  created: function(){
+  created: function () {
     this.fetchData()
   },
   watch: {
     repository: "fetchData"
   },
   filters: {
-    formatDate: function(v){
+  	formatDate: function (v) {
       return v.replace(/T|Z/g, ' ')
     }
   },
-  //動的なプロパティ(取得できてるかどうかで計算)
   computed: {
-    hasIssue: function(){
-      return this.issues.length > 0 ? true : false;
-    },
-    filtered_issues: function(){
-      var query = this.searchText;
-      return this.issues.filter(function(issue){
-        return issue.title.indexOf(query) > -1
-      })
+  	hasIssue: function(){
+    	return this.issues.length > 0 ? true : false;
     }
   },
   methods: {
-    fetchData: function(){
+    fetchData: function () {
       var xhr = new XMLHttpRequest();
       var self = this;
       xhr.open("GET", ISSUES.replace("[R]", this.repository));
-      xhr.onlord = function(){
+      xhr.onload = function () {
         self.issues = JSON.parse(xhr.responseText);
       }
       xhr.send()
+    }
+  }
+})
+
+Vue.component("todo-template", {
+  props: ["t"],
+  data: function(){
+    return {
+      doing: false
+    }
+  },
+  template: "#todo-template",
+  methods: {
+    begin: function () {
+      this.doing = !this.doing;
+      this.$emit("todochanged", this.doing);
+    }
+  }
+});
+
+var todoApp2 = new Vue({
+  el: '#todoApp2',
+  data: {
+    todo: "",
+    todos: [],
+    doings: 0
+  },
+  methods: {
+    addTodo: function() {
+      this.todos.push({
+        name: this.todo,
+        done: false
+      })
+      this.todo = ""
+    },
+    count: function(doing){
+      this.doings += doing ? 1 : -1;
     }
   }
 })

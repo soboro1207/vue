@@ -12,16 +12,16 @@
         background-color: floralwhite;
       }
 
-      .repository-default{
+      .issue-default{
         padding: 10px;
       }
-      .repository-default a{
+      .issue-default a{
         font-weight: bold;
         font-size: 18px;
         text-decoration: none;
         color: slategray;
       }
-      .repository-default span{
+      .issue-default span{
         color:#767676;
         font-size: 12px;
       }
@@ -56,60 +56,62 @@
       <p>{{ message }}</p>
       <input v-model="message">
     </div>
-    <div id="app-7">
-      <br>
-      ↓一見ただの配列だけどコンポーネントなので使い回しが可能
-      <ol>
-        <!--
-        各todo-itemの内容を表すtodoオブジェクトを与える。
-        これより内容は動的に変化する。
-        また、あとに出てくる"key"を各コンポーネントに提供する必要がある。
-        -->
-        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
-        使い回しです
-        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
-      </ol>
-  </div>
-
-  <p>Qiitaより</p>
-  <div id="todoApp">
-    <h2 v-bind:style="fontStyle">{{ title }}</h2>
-    <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
     <div>
-      <div v-for="t in todos" v-vind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
-        {{ t.name }}
-      </div>
+      <p>Qiitaより</p>
     </div>
-  </div>
-
-
-<p>Github連携</p>
-  <div id="issues">
-    <h2>Latest {{ repository }} Issues</h2>
-    <div>
-      <input type="text" v-model="repository">
-    </div>
-    <div>
-      <input type="text" v-model="searchText">
-      <div v-if="hasIssue">
-        <div v-for="issue in filtered_issues" class="issue-default">
-          <a :href="issue.html_url" target="_blank">
-            {{ issue.title }}
-          </a><br/>
-          <span>#{{issue.number}} at {{issue.updated_at | formatDate}}</span>
+    <div id="todoApp">
+      <h2 v-bind:style="fontStyle">{{ title }}</h2>
+      <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
+      <div>
+        <div v-for="t in todos" v-vind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
+          {{ t.name }}
         </div>
       </div>
-      <div v-else>
-        The repository {{repository}} does not exist.
+    </div>
+    <div id="todoApp2">
+      <h2>Todo with Component</h2>
+      <input type="text" v-model="todo" v-on:keyup.enter="addTodo">
+      <span>doing {{doings}} / {{todos.length}} task</span>
+      <div>
+        <todo-template v-for="t in todos" :t="t" @todochanged="count"></todo-template>
       </div>
     </div>
-  </div>
+
+    <div>
+      <p>Github連携</p>
+    </div>
+    <div id="issues">
+      <h2>Latest {{repository}} Issues</h2>
+      <div>
+        <input type="text" v-model="repository">
+      </div>
+      <div>
+        <input type="text" v-model="searchText">
+        <div v-show="hasIssue">
+          <div v-for="issue in issues" v-if="issue.title.indexOf(searchText) > -1"
+               class="issue-default">
+            <a :href="issue.html_url" target="_blank">
+              {{issue.title}}
+            </a><br/>
+            <span>#{{issue.number}} at {{issue.updated_at | formatDate}}</span>
+          </div>
+        </div>
+        <div v-else>
+          The repository {{repository}} does not exist!
+        </div>
+      </div>
+    </div>
     <!-- HTMLを読み込む前にVueを走らせると怒られる -->
     <!-- 開発用 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
     <!-- 本番環境用 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-    <script src="https://unpkg.com/vue"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+     <!--<script src="https://unpkg.com/vue"></script>-->
     <script type="text/javascript" src="./vue.js"></script>
+    <script type="text/x-template" id="todo-template">
+      <div v-bind:class="['todo-default', doing ? 'todo-doing' : '']" v-on:click="begin">
+        {{t.name}}
+      </div>
+    </script>
   </body>
 </html>
