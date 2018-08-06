@@ -7,14 +7,39 @@
   </head>
   <body>
     <div id="app">
+      <header v-bind:class="{compact: scrollY > 200}">
+        200pxより下にスクロールしたら.compactを付与
+      </header>
+      <div v-on:click.right="handler">example</div>
+      <div v-on:click.right.prevent="handler">example</div>
+      <input v-model="message">
       <p>{{ message }}</p>
-      <ol>
-        <li v-for="item in list">{{ item }}</li>
-      </ol>
-      <button @click="show=!show">Change</button>
-      <transition>
-        <p v-if="show">Hello Vue.js!</p>
-      </transition>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
+            <p>{{ message }}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/main.js"></script>
