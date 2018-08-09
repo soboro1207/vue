@@ -3,21 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>practice</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link href="css/main.css" rel="stylesheet">
   </head>
   <body>
-    <div id="app">
-      <!-- ウォッチャを利用してる -->
-      <select v-model="current">
-        <option v-for="topic in topics" v-bind:value="topic.value">
-          {{ topic.name }}
-        </option>
-      </select>
-      <div v-for="item in list">{{ item.full_name }}</div>
-    </div>
+    <el-container>
+      <el-aside width="200px">Aside</el-aside>
+      <el-container>
+        <el-header>Header</el-header>
+        <el-main>
+          <div id="app">
+            <!--ウォッチャを利用してる-->
+            <select v-model="current">
+              <option v-for="topic in topics" v-bind:value="topic.value">
+                {{ topic.name }}
+              </option>
+            </select>
+            <div v-for="item in list">{{ item.full_name }}</div>
+          </div>
+        </el-main>
+        <el-footer>Footer</el-footer>
+      </el-container>
+    </el-container>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
